@@ -4,7 +4,7 @@ import { TextureLoader, BackSide } from "three";
 export default function Skybox() {
   const texture = useLoader(
     TextureLoader,
-    "/gla.svg?height=2000&width=4000&text=Starfield"
+    "https://i.postimg.cc/brX1yZHv/2k-stars-milky-way.jpg"
   );
 
   return (

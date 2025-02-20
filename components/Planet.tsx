@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { useFrame, useLoader } from "@react-three/fiber";
-import { type Mesh, TextureLoader } from "three";
+import { Mesh, TextureLoader } from "three";
 
 interface MoonProps {
   name: string;
@@ -52,9 +52,16 @@ export default function Planet({
 
   return (
     <group>
+      {/* Sunlight for a bright Sun */}
+      <pointLight position={[0, 0, 0]} intensity={5} color="yellow" />
+
+      {/* Reduced ambient and directional lighting for dimmer planets */}
+      <ambientLight intensity={0.15} />
+      <directionalLight position={[5, 5, 5]} intensity={0.6} />
+
       <mesh ref={meshRef} position={position}>
         <sphereGeometry args={[size, 32, 32]} />
-        <meshStandardMaterial map={texture} />
+        <meshStandardMaterial map={texture} roughness={0.98} metalness={0.02} />
         {moons &&
           moons.map((moon, index) => (
             <Moon
@@ -68,7 +75,7 @@ export default function Planet({
       </mesh>
       <mesh ref={orbitRef} rotation={[Math.PI / 2, 0, 0]}>
         <ringGeometry args={[orbitRadius, orbitRadius + 0.1, 64]} />
-        <meshBasicMaterial color="#ffffff" opacity={0.1} transparent={true} />
+        <meshBasicMaterial color="#cccccc" opacity={0.5} transparent={true} />
       </mesh>
     </group>
   );
@@ -99,7 +106,7 @@ function Moon({
   return (
     <mesh ref={moonRef}>
       <sphereGeometry args={[size, 32, 32]} />
-      <meshStandardMaterial map={texture} />
+      <meshStandardMaterial map={texture} roughness={0.98} metalness={0.02} />
     </mesh>
   );
 }
@@ -121,7 +128,7 @@ function Rings({
         map={texture}
         side={2}
         transparent={true}
-        opacity={0.8}
+        opacity={0.6} // Slightly darker rings
       />
     </mesh>
   );
