@@ -10,7 +10,7 @@ export default function Sun({ timeSpeed }: SunProps) {
   const meshRef = useRef<Mesh>(null!);
   const texture = useLoader(
     TextureLoader,
-    "https://i.postimg.cc/CxMkxTDb/2k-sun.jpg"
+    "https://i.ibb.co/35KrVh6g/2k-sun.jpg"
   );
 
   useFrame(() => {
